@@ -21,7 +21,7 @@ A **content delivery network (CDN)** is a network of distributed edge servers, w
 The Warpcache plugin has been developed to link your content to the CDN URLs.
 
 = Features =
-* Link assets to load from a CDN
+* Rewrite asset hostnames to load from a CDN
 * Set included directories
 * Define exclusions
 * Enable or disable for HTTPS
