@@ -43,7 +43,7 @@ class WARPCACHE_Enabler_Settings
 	public static function validate_settings($data)
 	{
 		if (sanitize_title($data['url']) != $data['url']) {
-			add_settings_error( 'url', 'url', "The supplied label doesn't look like what we thought it would look like. Looking for a" );
+			add_settings_error( 'url', 'url', "A label may only contain alphanumeric characters. .cdn.warpcache.net will be appended automatically. " );
 			$data['url'] = '';
 		}
 		return array(
@@ -114,7 +114,7 @@ class WARPCACHE_Enabler_Settings
 								</label>
 
 								<p class="description">
-									<?php _e("Enter the label as found in the Cloakfusion control panel (https://my.cloakfusion.com). Leave empty to stop using a CDN.", "cdn"); ?>
+									<?php _e("Enter the label as found in the Cloakfusion control panel (https://my.cloakfusion.com). Leave both fields empty to stop using a CDN.", "cdn"); ?>
 								</p>
 							</fieldset>
 						</td>
@@ -132,7 +132,7 @@ class WARPCACHE_Enabler_Settings
 								</label>
 
 								<p class="description">
-									<?php _e("Enter the alias as found in the Cloakfusion control panel (https://my.cloakfusion.com)", "cdn"); ?>
+									<?php _e("Enter the alias as found in the Cloakfusion control panel (https://my.cloakfusion.com). Leave both fields empty to stop using a CDN.", "cdn"); ?>
 								</p>
 							</fieldset>
 						</td>
