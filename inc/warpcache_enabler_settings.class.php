@@ -42,8 +42,13 @@ class WARPCACHE_Enabler_Settings
 
 	public static function validate_settings($data)
 	{
+		if (sanitize_title($data['url']) != $data['url']) {
+			add_settings_error( 'url', 'url', "The supplied label doesn't look like what we thought it would look like. Looking for a" );
+			$data['url'] = '';
+		}
 		return array(
-			'url'		=> esc_url($data['url']),
+			'url'		=> sanitize_title($data['url']),
+			'alias'		=> esc_attr($data['alias']),
 			'dirs'		=> esc_attr($data['dirs']),
 			'excludes'	=> esc_attr($data['excludes']),
 			'relative'	=> (int)($data['relative']),
@@ -99,7 +104,7 @@ class WARPCACHE_Enabler_Settings
 
 					<tr valign="top">
 						<th scope="row">
-							<?php _e("Warpcache Hostname", "cdn"); ?>
+							<?php _e("Warpcache Label", "cdn"); ?>
 						</th>
 						<td>
 							<fieldset>
@@ -109,7 +114,25 @@ class WARPCACHE_Enabler_Settings
 								</label>
 
 								<p class="description">
-									<?php _e("Enter the hostname as found in the Cloakfusion control panel (https://my.cloakfusion.com)", "cdn"); ?> <code>/</code>
+									<?php _e("Enter the label as found in the Cloakfusion control panel (https://my.cloakfusion.com). Leave empty to stop using a CDN.", "cdn"); ?>
+								</p>
+							</fieldset>
+						</td>
+					</tr>
+
+					<tr valign="top">
+						<th scope="row">
+							<?php _e("Custom Alias", "cdn"); ?>
+						</th>
+						<td>
+							<fieldset>
+								<label for="warpcache_enabler_alias">
+									<input type="text" name="warpcache_enabler[alias]" id="warpcache_enabler_alias" value="<?php echo $options['alias']; ?>" size="64" class="regular-text code" />
+									<?php _e("", "cdn"); ?>
+								</label>
+
+								<p class="description">
+									<?php _e("Enter the alias as found in the Cloakfusion control panel (https://my.cloakfusion.com)", "cdn"); ?>
 								</p>
 							</fieldset>
 						</td>
