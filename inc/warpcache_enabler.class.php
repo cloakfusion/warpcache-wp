@@ -148,6 +148,7 @@ class WARPCACHE_Enabler
             'warpcache_enabler',
             array(
                 'url' => get_option('siteurl'),
+                'alias' => '',
                 'dirs' => 'wp-content,wp-includes',
                 'excludes' => '.php',
                 'relative' => '1',
@@ -194,7 +195,8 @@ class WARPCACHE_Enabler
 		return wp_parse_args(
 			get_option('warpcache_enabler'),
 			array(
-                'url' => get_option('siteurl'),
+                'url' => '',
+                'alias' => '',
                 'dirs' => 'wp-content,wp-includes',
                 'excludes' => '.php',
                 'relative' => 1,
@@ -220,11 +222,26 @@ class WARPCACHE_Enabler
     		return;
     	}
 
+        // Override alias if it's set, otherwise just use warpcache url
+        $cdn_url = '';
+
+        if (!empty($options['alias']) && $options['alias'] != '') {
+            $cdn_url = $options['alias'];
+        } else if( $options['url'] != '') {
+            $cdn_url = $options['url'] . ".cdn.warpcache.com";
+        }
+
+	if ($options['https'] && $cdn_url != '') {
+		$cdn_url = 'https://' . $cdn_url;
+	} else if ($cdn_url != '') {
+		$cdn_url = 'http://' . $cdn_url;
+	}
+
         $excludes = array_map('trim', explode(',', $options['excludes']));
 
     	$rewriter = new WARPCACHE_Enabler_Rewriter(
     		get_option('siteurl'),
-    		$options['url'],
+            $cdn_url,
     		$options['dirs'],
     		$excludes,
     		$options['relative'],
