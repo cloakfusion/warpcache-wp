@@ -147,7 +147,7 @@ class WARPCACHE_Enabler
         add_option(
             'warpcache_enabler',
             array(
-                'url' => get_option('siteurl'),
+                'url' => '',
                 'alias' => '',
                 'dirs' => 'wp-content,wp-includes',
                 'excludes' => '.php',
